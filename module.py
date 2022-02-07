@@ -19,7 +19,7 @@ def gg(A):
     for i in range(n):
         if B.row(i)[i]==0 or isinstance(B.row(i)[i],Mul) or isinstance(B.row(i)[i],Add) or isinstance(B.row(i)[i],Symbol):
         #if B.row(i)[i]==0:
-            for k in range(i+1, len(A)):
+            for k in range(i+1, n):
                 
                 if B.row(k)[i] !=0 and not(isinstance(B.row(k)[i],Mul) or isinstance(B.row(k)[i],Add) or isinstance(B.row(k)[i],Symbol)):
                     B=B.elementary_row_op('n<->m',row1=k, row2=i)
