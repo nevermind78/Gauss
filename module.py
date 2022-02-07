@@ -14,7 +14,7 @@ def gg(A):
     n=A.shape[0]
     B=A.col_insert(n,eye(n))
     #pprint(B)
-    display(Latex(f'$A={latex(B[:,:n])}\quad I_{n}={latex(B[:,n:])}\quad b={latex(B[:,-1])} $'))
+    display(Latex(f'$A={latex(B[:,:n])}\quad I_{n}={latex(B[:,n:])} $'))
     print('===================================================')   
     for i in range(n):
         if B.row(i)[i]==0 or isinstance(B.row(i)[i],Mul) or isinstance(B.row(i)[i],Add) or isinstance(B.row(i)[i],Symbol):
@@ -26,7 +26,7 @@ def gg(A):
                     print(' -------- Permutation L{} <--> L{} --------'.format(k+1,i+1))
                     display(Latex("$L_{} \leftrightarrow L_{}$".format(k+1,i+1)))
                     #print("L{} <--> L{} ".format(k+1,i+1))
-                    display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])}\quad {latex(B[:,-1])} $'))
+                    display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])}$'))
                     break;
             else:
                 if B.row(i)[i]==0:
@@ -38,15 +38,15 @@ def gg(A):
             #print("L{} <-- ({})*L{}".format(i+1,simplify(1/B.row(i)[i]),i+1))
             display(Latex("$L_{} \leftarrow ({})L_{}$".format(i+1,latex(simplify(1/B.row(i)[i])),i+1)))
             simplify(B.zip_row_op(i, i, lambda v, u: simplify(1/B.row(i)[i]*u)));
-            display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])}\quad {latex(B[:,-1])} $'))   
+            display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])} $'))   
         for j in range(n):
             if j!=i and (B.row(j)[i]!=0):
                 #print("L{} <-- L{} +({})*L{}".format(j+1,j+1,simplify(-B.row(j)[i]/B.row(i)[i]),i+1))
                 display(Latex("$L_{} \leftarrow L_{}+({})L_{}$".format(j+1,j+1,latex(simplify(-B.row(j)[i]/B.row(i)[i])),i+1)))
                 simplify(B.zip_row_op(j, i, lambda v, u: simplify(v -B.row(j)[i]/B.row(i)[i] *u)));
-                display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])} \quad {latex(B[:,-1])}$'))                
+                display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])} $'))                
         print('===================================================')
-    return B[:,n:],B[:,-1]
+    return B[:,n:]
 def indices(n,m):
     L= ['a{}{}'.format(i,j) for i in range(1,n+1)  for j in range(1,m+1)]
     return {u[0]+1:u[1] for u in enumerate(L)}
