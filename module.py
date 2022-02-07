@@ -49,3 +49,12 @@ def gg(A):
 def indices(n,m):
     L= ['a{}{}'.format(i,j) for i in range(1,n+1)  for j in range(1,m+1)]
     return {u[0]+1:u[1] for u in enumerate(L)}
+def wid(n,m):
+    items = [widgets.Text(
+    value='0',
+    placeholder='a',
+    description=indices(n,m)[i],
+    layout=Layout(width='75%', height='75%'),
+    disabled=False
+) for i in indices(n,m).keys()]
+    return widgets.GridBox(items, layout=widgets.Layout(grid_template_columns="repeat({}, 200px)".format(m)))
