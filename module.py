@@ -11,11 +11,12 @@ import numpy as np
 from ipywidgets import interact ,Layout
 
 def gg(A):
-    B=A.col_insert(A.shape[0],eye(A.shape[0]))
+    n=A.shape[0]
+    B=A.col_insert(n,eye(n))
     #pprint(B)
     display(Latex(f'$A={latex(B[:,:n])}\quad I_{n}={latex(B[:,n:])}\quad b={latex(B[:,-1])} $'))
     print('===================================================')   
-    for i in range(A.shape[0]):
+    for i in range(n):
         if B.row(i)[i]==0 or isinstance(B.row(i)[i],Mul) or isinstance(B.row(i)[i],Add) or isinstance(B.row(i)[i],Symbol):
         #if B.row(i)[i]==0:
             for k in range(i+1, len(A)):
@@ -38,7 +39,7 @@ def gg(A):
             display(Latex("$L_{} \leftarrow ({})L_{}$".format(i+1,latex(simplify(1/B.row(i)[i])),i+1)))
             simplify(B.zip_row_op(i, i, lambda v, u: simplify(1/B.row(i)[i]*u)));
             display(Latex(f'${latex(B[:,:n])}\quad {latex(B[:,n:])}\quad {latex(B[:,-1])} $'))   
-        for j in range(A.shape[0]):
+        for j in range(n):
             if j!=i and (B.row(j)[i]!=0):
                 #print("L{} <-- L{} +({})*L{}".format(j+1,j+1,simplify(-B.row(j)[i]/B.row(i)[i]),i+1))
                 display(Latex("$L_{} \leftarrow L_{}+({})L_{}$".format(j+1,j+1,latex(simplify(-B.row(j)[i]/B.row(i)[i])),i+1)))
